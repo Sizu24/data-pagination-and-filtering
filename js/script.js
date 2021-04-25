@@ -18,14 +18,43 @@ For assistance:
    Put page content into HTML
 */
 
+let searchResults = data; 
 const searchUser = ()=>{
-   const searchBar = 
+   const headerSection = document.querySelector(".header");
+
+   const searchBarCode = 
    `
-      <label>
-         <input type="search" id="search" placeholder="Search By Name"></input>
-         <button></button>
+      <label for="search" class="student-search">
+         <span class="student-span">Search Student</span>
+         <input id="search" placeholder="Search By Name"></input>
+         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
       </label>
    `
+   // Add searchbar to header, before end of header
+   headerSection.insertAdjacentHTML("beforeend", searchBarCode);
+   const searchBar = document.querySelector("#search");
+
+   // get input in searchbar
+   searchBar.addEventListener("keyup", ()=>{
+      searchResults = []; 
+      let userInput = searchBar.value.toLowerCase();
+      
+      // find name match for user input from data object
+      for(i = 0; i < data.length; i++){
+         let firstName  = data[i].name.first.toLowerCase();
+         let lastName = data[i].name.last.toLowerCase();
+         if(firstName.indexOf(userInput) !== -1 || lastName.indexOf(userInput) !== -1){
+            console.log(`${data[i].name.first} ${data[i].name.last}`);
+            if(searchResults.indexOf(userInput) === -1){
+               searchResults.push(data[i]);
+            }
+         }
+      }
+      console.log(`Search results: ${searchResults}`);
+      console.log(searchResults.length);
+      showPage(searchResults, 1);
+      addPagination(searchResults);
+   });
 }
 
 const showPage = (list, page)=>{
@@ -41,7 +70,7 @@ const showPage = (list, page)=>{
       if(i >= startIndex && i < endIndex){
          pageContent +=
          `
-         <li class="studen-item cf">
+         <li class="student-item cf profile-${i}">
             <div class="student-details">
                <img src="${list[i].picture.thumbnail}" class="avatar">
                <h3>${list[i].name.first} ${list[i].name.last}</h3>
@@ -92,12 +121,13 @@ const addPagination = (list)=>{
          }
          e.target.classList.add("active");
          let page = parseInt(e.target.textContent);
-         showPage(data, page);
+         showPage(data, page); 
       }
    });
 }
 
 // Call functions
 
-showPage(data, 1);
-addPagination(data);
+showPage(searchResults, 1);
+addPagination(searchResults);
+searchUser();
