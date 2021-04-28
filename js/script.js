@@ -54,7 +54,6 @@ const showPage = (list, page)=>{
    Add active class to highlight button of page number that is active
    If no profiles exist, no buttons will show
 */
-
 const addPagination = (list)=>{
    let linkList = document.querySelector(".link-list");
 
@@ -83,13 +82,6 @@ const addPagination = (list)=>{
 
       linkList.addEventListener("click", e =>{
          if(e.target.tagName === "BUTTON"){
-            // for(let i = 0; i < numOfButtons; i++){
-            //    let buttonList = linkList.children[1];
-            //    let buttonClasses = buttonList.firstElementChild;
-            //    buttonClasses.classList.remove("active");
-            //    console.log(buttonList);
-            // }
-     
             const activeButton = document.querySelector(".active");
             activeButton.classList.remove("active");
             e.target.classList.add("active");
@@ -117,6 +109,7 @@ const showSearchBar = ()=>{
    // Add searchbar to header, before end of header
    headerSection.insertAdjacentHTML("beforeend", searchBarCode);
 };
+
 /*
    Function that loops through data array to see if names match user input
    Pushes matched results from data array into "searchResults" array if data doesn't already exist
@@ -135,6 +128,7 @@ const searchMatch = (input)=>{
    }
    return searchResults;
 };
+
 /*
    Get user input from search bar on keyup
    Check for match between user input and names from data array
@@ -167,7 +161,6 @@ const searchUser = ()=>{
 };
 
 // Call functions that display items on page
-
 showPage(data, 1);
 showSearchBar();
 addPagination(data);
