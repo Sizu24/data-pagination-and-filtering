@@ -81,14 +81,17 @@ const addPagination = (list)=>{
          buttonOne.firstElementChild.classList.add("active");
       }
 
-   
       linkList.addEventListener("click", e =>{
          if(e.target.tagName === "BUTTON"){
-            for(let i = 0; i < numOfButtons; i++){
-               let buttonList = linkList.children[i];
-               let buttonClasses = buttonList.firstElementChild;
-               buttonList.firstElementChild.classList.remove("active");
-            }
+            // for(let i = 0; i < numOfButtons; i++){
+            //    let buttonList = linkList.children[1];
+            //    let buttonClasses = buttonList.firstElementChild;
+            //    buttonClasses.classList.remove("active");
+            //    console.log(buttonList);
+            // }
+     
+            const activeButton = document.querySelector(".active");
+            activeButton.classList.remove("active");
             e.target.classList.add("active");
             let page = parseInt(e.target.textContent);
             showPage(list, page); 
